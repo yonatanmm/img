@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>NOURISH — CIFF Investment-Level PMF Dashboard</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#F1F5F9;color:#1E293B;font-size:13px}
+.hdr{background:#fff;border-bottom:2px solid #E2E8F0;padding:8px 20px;display:flex;align-items:center;justify-content:space-between}
+.hdr-logo{background:#4A5A8A;color:#fff;padding:5px 14px;border-radius:6px;font-size:16px;font-weight:900;letter-spacing:1.5px;font-style:italic}
+.hdr-title{font-size:13px;font-weight:800;color:#4A5A8A}
+.hdr-sub{font-size:9px;color:#94A3B8}
+.tabs{background:#fff;border-bottom:1px solid #E2E8F0;padding:0 20px;display:flex;overflow-x:auto}
+.tab{padding:9px 14px;border:none;border-bottom:3px solid transparent;background:none;color:#94A3B8;font-weight:500;font-size:11px;cursor:pointer;white-space:nowrap;font-family:inherit}
+.tab.on{color:#4A5A8A;font-weight:700;border-bottom-color:#3B82F6}
+.tab:hover{color:#4A5A8A}
+.main{padding:12px 20px;max-width:1220px;margin:0 auto}
+.filters{display:flex;gap:12px;align-items:center;flex-wrap:wrap;padding:8px 0;margin-bottom:8px}
+.flab{font-size:10px;font-weight:700;color:#94A3B8;text-transform:uppercase;letter-spacing:.5px}
+select{padding:5px 10px;border-radius:6px;border:1px solid #E2E8F0;font-size:12px;font-weight:600;color:#4A5A8A;background:#fff;cursor:pointer;outline:none;font-family:inherit}
+.yb{padding:4px 10px;border-radius:14px;border:1px solid #E2E8F0;background:#fff;color:#94A3B8;font-weight:600;font-size:11px;cursor:pointer;font-family:inherit}
+.yb.on{background:#EEF2FF;color:#4A5A8A;border-color:#3B82F6;font-weight:700}
+.grid{display:grid;gap:10px;margin-bottom:10px}
+.g4{grid-template-columns:1fr 1fr 1fr 1.1fr}
+.g3{grid-template-columns:1fr 1fr 1fr}
+.g3a{grid-template-columns:1.3fr 1fr 1fr}
+.g2{grid-template-columns:1fr 1fr}
+.g2a{grid-template-columns:1.4fr 1fr}
+.g2b{grid-template-columns:1fr 1fr 1.5fr}
+.cd{background:#fff;border-radius:10px;box-shadow:0 1px 3px rgba(0,0,0,.04);border:1px solid #E2E8F0;overflow:hidden}
+.ct{padding:10px 14px 2px;font-size:12px;font-weight:700;color:#4A5A8A}
+.cb{padding:8px 14px 12px}
+.nr{background:#F0F4FF;border-left:3px solid #5B6EAE;padding:10px 14px;border-radius:0 6px 6px 0;font-size:11px;line-height:1.6;margin-top:10px}
+.ks{display:flex;gap:6px;padding:5px 10px;border-radius:7px;align-items:center;margin-bottom:5px;font-size:11px;border-left:4px solid}
+.ks .nm{font-weight:600;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ks .vl{font-weight:800;min-width:48px;text-align:right}
+.ks .tg{font-size:10px;color:#94A3B8}
+.ks .pc{font-weight:700;min-width:36px;text-align:right}
+table{width:100%;font-size:10px;border-collapse:collapse}
+th{text-align:left;padding:7px 6px;color:#4A5A8A;font-weight:700;border-bottom:2px solid #4A5A8A;background:#F8FAFC}
+td{padding:6px;border-bottom:1px solid #E2E8F0}
+tr:nth-child(even) td{background:#FAFBFD}
+.bg{padding:2px 7px;border-radius:4px;font-size:9px;font-weight:700;display:inline-block}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:4px}
+.sc{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto}
+.sc span{color:#fff;font-size:17px;font-weight:800}
+.ptitle{font-size:14px;font-weight:800;color:#4A5A8A;margin-bottom:10px}
+.center{text-align:center}
+@media(max-width:900px){.g4,.g3,.g3a,.g2,.g2a,.g2b{grid-template-columns:1fr}}
+</style>
+
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:k3cd4b87e6fb4b5b9d335d3aba2ef62a msdt:dt="string"></mso:k3cd4b87e6fb4b5b9d335d3aba2ef62a>
+<mso:Partner msdt:dt="string"></mso:Partner>
+<mso:Milestone_x0020_Status msdt:dt="string"></mso:Milestone_x0020_Status>
+<mso:Donor msdt:dt="string"></mso:Donor>
+<mso:Contract_x0020_Code msdt:dt="string"></mso:Contract_x0020_Code>
+<mso:c8b907f855e0446eb6a113bf8d66b8c9 msdt:dt="string"></mso:c8b907f855e0446eb6a113bf8d66b8c9>
+<mso:o5e29138960540b39c208ae0f1b67692 msdt:dt="string"></mso:o5e29138960540b39c208ae0f1b67692>
+<mso:Vendor_x0020_Code msdt:dt="string"></mso:Vendor_x0020_Code>
+<mso:ed027726570048f2a29554f241f134a5 msdt:dt="string">Programs|160b2fba-0fea-430f-b544-faa7b8942481</mso:ed027726570048f2a29554f241f134a5>
+<mso:k70cbcdec0af48358d1b94fd946081b5 msdt:dt="string"></mso:k70cbcdec0af48358d1b94fd946081b5>
+<mso:Area_x0020_of_x0020_Work msdt:dt="string"></mso:Area_x0020_of_x0020_Work>
+<mso:gfc9f0a578894e8a9ee2ba288efa4171 msdt:dt="string"></mso:gfc9f0a578894e8a9ee2ba288efa4171>
+<mso:Knowledge_x0020_Resources_x0020_Schedule msdt:dt="string"></mso:Knowledge_x0020_Resources_x0020_Schedule>
+<mso:Country msdt:dt="string"></mso:Country>
+<mso:ec33055c864243cfb014fab5ab16e6da msdt:dt="string"></mso:ec33055c864243cfb014fab5ab16e6da>
+<mso:b92ed0b1c45945b48ccd1503066d27f8 msdt:dt="string"></mso:b92ed0b1c45945b48ccd1503066d27f8>
+<mso:ifc8ebe9ab164cd7bb9c64298b2baf27 msdt:dt="string"></mso:ifc8ebe9ab164cd7bb9c64298b2baf27>
+<mso:Project_x0020_Code msdt:dt="string"></mso:Project_x0020_Code>
+<mso:Region msdt:dt="string"></mso:Region>
+<mso:c690238a357d4963acf3137e7fe67dc1 msdt:dt="string"></mso:c690238a357d4963acf3137e7fe67dc1>
+<mso:f166d181b90047af923e60b9523e0d91 msdt:dt="string"></mso:f166d181b90047af923e60b9523e0d91>
+<mso:MediaServiceImageTags msdt:dt="string"></mso:MediaServiceImageTags>
+<mso:f46cb39187014b4388565f2a1a3cd0d7 msdt:dt="string"></mso:f46cb39187014b4388565f2a1a3cd0d7>
+<mso:Donor_x0020_Type msdt:dt="string"></mso:Donor_x0020_Type>
+<mso:Contract_x0020_Code_x0020__x007C__x0020_Legacy msdt:dt="string"></mso:Contract_x0020_Code_x0020__x007C__x0020_Legacy>
+<mso:m868df622d17418d98005cac9a947285 msdt:dt="string"></mso:m868df622d17418d98005cac9a947285>
+<mso:Progress_x0020_Status msdt:dt="string"></mso:Progress_x0020_Status>
+<mso:Unit msdt:dt="string">1;#Programs|160b2fba-0fea-430f-b544-faa7b8942481</mso:Unit>
+<mso:i0b3b361b601441c8a4f9bb12cf1fe11 msdt:dt="string"></mso:i0b3b361b601441c8a4f9bb12cf1fe11>
+<mso:f798d31e138b48ba8897f5a56dbee816 msdt:dt="string"></mso:f798d31e138b48ba8897f5a56dbee816>
+<mso:g87849624f4347a6bf616b55c3f7e582 msdt:dt="string"></mso:g87849624f4347a6bf616b55c3f7e582>
+<mso:p3ecf4c3203848d1b2827fd28615fd40 msdt:dt="string"></mso:p3ecf4c3203848d1b2827fd28615fd40>
+<mso:Fiscal_x0020_Year_x005C_Year msdt:dt="string"></mso:Fiscal_x0020_Year_x005C_Year>
+<mso:b9878932876b42efb0c6534eea669466 msdt:dt="string"></mso:b9878932876b42efb0c6534eea669466>
+<mso:NI_x0020_Office msdt:dt="string"></mso:NI_x0020_Office>
+<mso:TaxCatchAll msdt:dt="string">1;#Programs|160b2fba-0fea-430f-b544-faa7b8942481</mso:TaxCatchAll>
+<mso:Donor_x0020_Status msdt:dt="string"></mso:Donor_x0020_Status>
+<mso:lcf76f155ced4ddcb4097134ff3c332f msdt:dt="string"></mso:lcf76f155ced4ddcb4097134ff3c332f>
+<mso:Doc_x0020_Type msdt:dt="string"></mso:Doc_x0020_Type>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+</head>
+<body>
+
+<div class="hdr">
+  <div style="display:flex;align-items:center;gap:10px">
+    <div class="hdr-logo">nourish</div>
+    <div><div class="hdr-title">CIFF Investment-Level PMF Dashboard</div><div class="hdr-sub">MMS &amp; Calcium — Rwanda &amp; Ethiopia | 2026–2030</div></div>
+  </div>
+  <div style="font-size:9px;color:#94A3B8;text-align:right"><div style="font-weight:600">Dashboard Prototype</div></div>
+</div>
+
+<div class="tabs" id="tabs"></div>
+<div class="main" id="main"></div>
+
+<script>
+/* ===== CONSTANTS ===== */
+var CN={navy:"#4A5A8A",sky:"#3B82F6",light:"#EEF2FF",accent:"#E97730",green:"#16A34A",amber:"#EAB308",red:"#DC2626",teal:"#0D9488",muted:"#94A3B8",text:"#1E293B",border:"#E2E8F0"};
+var PAGES=["Investment Overview","Delivery Systems","Market & Supply","Financing","Ecosystem & Calcium","Trend Analytics","Geographic View","Data Quality","KPI Deep Dive"];
+var YLIST=[2026,2027,2028,2029,2030];
+var MLIST=["All","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+var QLIST=["All","Q1","Q2","Q3","Q4"];
+
+/* ===== STATE ===== */
+var S={page:0,country:"Both",years:[2026,2027,2028,2029,2030],quarter:"All",month:"All"};
+
+/* ===== DATA ===== */
+var _seed=42;
+function srand(){_seed=(_seed*16807)%2147483647;return(_seed-1)/2147483646}
+function sd(c,y,b){var m=(c==="Rwanda"?1.08:0.94)*(1+(y-2026)*0.19);return Math.round(b*m*(0.88+srand()*0.24))}
+function getK(c,y){
+  _seed=((c==="Rwanda"?7:c==="Ethiopia"?13:20)+y*31)%2147483647;
+  var ml=c==="Both"?2:1;
+  return[
+    {id:"k1",nm:"Countries IFA→MMS",a:Math.min(sd(c,y,2*ml),8),t:Math.min(2+(y-2026)*1.5,8),u:"",p:"Delivery"},
+    {id:"k2",nm:"PW Receiving MMS",a:sd(c,y,400000*ml),t:sd("t",y,500000*ml),u:"",p:"Delivery"},
+    {id:"k3",nm:"MMS Coverage",a:Math.min(sd(c,y,38),95),t:Math.min(20+(y-2026)*10,60),u:"%",p:"Delivery"},
+    {id:"k5",nm:"Cost per Woman",a:Math.max(sd(c,y,8),4),t:6,u:"$",p:"Delivery",inv:true},
+    {id:"k6",nm:"Districts w/ MMS",a:sd(c,y,300*ml),t:sd("t",y,400*ml),u:"",p:"Delivery"},
+    {id:"k7",nm:"MMS in HMIS",a:Math.min(sd(c,y,1),2),t:Math.min(1+(y-2026),2),u:"",p:"Delivery"},
+    {id:"k8",nm:"Pooled Procurement",a:Math.min(sd(c,y,2*ml),8),t:Math.min(2+(y-2026)*1.5,8),u:"",p:"Market"},
+    {id:"k9",nm:"MMS Cost/Course",a:+(Math.max(sd(c,y,3),1.5)).toFixed(1),t:2.1,u:"$",p:"Market",inv:true},
+    {id:"k10",nm:"Costed Roadmaps",a:Math.min(sd(c,y,2*ml),8),t:Math.min(2+(y-2026)*1.5,8),u:"",p:"Financing"},
+    {id:"k11",nm:"Financing Committed",a:sd(c,y,8*ml),t:sd("t",y,11*ml),u:"$M",p:"Financing"},
+    {id:"k12",nm:"Continental Scorecard",a:y>=2028?1:0,t:1,u:"bool",p:"Ecosystem"},
+    {id:"k13",nm:"WHO Guidelines",a:y>=2029?1:0,t:1,u:"bool",p:"Ecosystem"},
+    {id:"k14",nm:"Countries Ready 2030",a:Math.min(sd(c,y,2),7),t:Math.min(1+(y-2026)*1.5,7),u:"",p:"Ecosystem"},
+    {id:"k15",nm:"Calcium Integration",a:Math.min(sd(c,y,1),5),t:Math.min(1+(y-2026),5),u:"",p:"Calcium"},
+    {id:"k16",nm:"Financing Plans",a:Math.min(sd(c,y,2*ml),8),t:Math.min(2+(y-2026)*1.5,8),u:"",p:"Financing"}
+  ];
+}
+
+function stFn(a,t,inv){if(!t)return"green";var p=inv?(t/a)*100:(a/t)*100;return p>=90?"green":p>=70?"amber":"red"}
+function pcFn(a,t,inv){if(!t)return 100;return Math.round(inv?(t/a)*100:(a/t)*100)}
+function nf(v){return v>=1e6?(v/1e6).toFixed(1)+"M":v>=1000?Math.round(v/1000)+"K":v}
+function fm(v){return typeof v==="number"&&v>=1000?v.toLocaleString():v}
+function colr(s){return s==="green"?CN.green:s==="amber"?CN.amber:CN.red}
+function fk(v,u){return u==="bool"?(v?"Yes":"No"):u==="$"?("$"+fm(v)):u==="$M"?("$"+fm(v)+"M"):u==="%"?(v+"%"):fm(v)}
+function bgc(s){return s==="green"?"#F0FDF4":s==="amber"?"#FFFBEB":"#FEF2F2"}
+
+/* ===== SVG HELPERS ===== */
+function svgEl(tag,attrs,children){
+  var el=document.createElementNS("http://www.w3.org/2000/svg",tag);
+  if(attrs)for(var k in attrs)el.setAttribute(k,attrs[k]);
+  if(typeof children==="string")el.textContent=children;
+  else if(Array.isArray(children))children.forEach(function(c){if(c)el.appendChild(c)});
+  return el;
+}
+
+function mkGauge(val,max,label,color,sz){
+  sz=sz||120;
+  var r=sz*.35,cx=sz/2,cy=sz*.52,sw=sz*.07;
+  var sa=-210,ea=30,rng=ea-sa;
+  var pv=Math.min(val/max,1.15),ang=sa+rng*Math.min(pv,1);
+  var tr=function(a){return a*Math.PI/180};
+  var ap=function(s,e){
+    var x1=cx+r*Math.cos(tr(s)),y1=cy+r*Math.sin(tr(s)),x2=cx+r*Math.cos(tr(e)),y2=cy+r*Math.sin(tr(e));
+    return"M"+x1+","+y1+" A"+r+","+r+" 0 "+(e-s>180?1:0)+" 1 "+x2+","+y2;
+  };
+  var dv=typeof val==="number"&&val>=10000?nf(val):val;
+  var svg=svgEl("svg",{width:sz,height:sz*.62,viewBox:"0 0 "+sz+" "+sz*.62},[
+    svgEl("path",{d:ap(sa,ea),fill:"none",stroke:"#E8ECF0","stroke-width":sw,"stroke-linecap":"round"}),
+    svgEl("path",{d:ap(sa,ang),fill:"none",stroke:color,"stroke-width":sw,"stroke-linecap":"round"}),
+    svgEl("text",{x:cx,y:cy-2,"text-anchor":"middle","font-size":sz*.17,"font-weight":"800",fill:color},""+dv),
+    svgEl("text",{x:cx,y:cy+sz*.1,"text-anchor":"middle","font-size":Math.min(sz*.065,9),"font-weight":"600",fill:"#94A3B8"},label)
+  ]);
+  return svg;
+}
+
+function mkLine(data,xKey,lines,ht,yDom){
+  var w=380,h=ht||170,ml=44,mr=10,mt=12,mb=26,pw=w-ml-mr,ph=h-mt-mb;
+  if(!data||!data.length)return svgEl("svg",{viewBox:"0 0 "+w+" "+h,style:"width:100%;height:"+h+"px"});
+  var allV=[];lines.forEach(function(ln){data.forEach(function(d){allV.push(d[ln.key]||0)})});
+  var yMin=yDom?yDom[0]:Math.floor(Math.min.apply(null,allV)*.85);
+  var yMax=yDom?yDom[1]:Math.ceil(Math.max.apply(null,allV)*1.15);
+  if(yMin===yMax)yMax=yMin+1;
+  var ch=[];
+  for(var ti=0;ti<5;ti++){
+    var yy=mt+ph*ti/4,vv=yMax-(yMax-yMin)*ti/4;
+    ch.push(svgEl("line",{x1:ml,y1:yy,x2:w-mr,y2:yy,stroke:"#f0f0f0","stroke-width":"1"}));
+    ch.push(svgEl("text",{x:ml-4,y:yy+3,"text-anchor":"end","font-size":"9",fill:CN.muted},""+nf(Math.round(vv))));
+  }
+  data.forEach(function(d,i){
+    var xx=data.length>1?ml+pw*i/(data.length-1):ml+pw/2;
+    ch.push(svgEl("text",{x:xx,y:h-5,"text-anchor":"middle","font-size":"9",fill:CN.muted},""+d[xKey]));
+  });
+  lines.forEach(function(ln){
+    var pts=data.map(function(d,i){
+      var xx=data.length>1?ml+pw*i/(data.length-1):ml+pw/2;
+      var yy2=mt+ph*(1-((d[ln.key]||0)-yMin)/(yMax-yMin));
+      return[xx,yy2];
+    });
+    var pathD=pts.map(function(p,i){return(i===0?"M":"L")+p[0]+","+p[1]}).join(" ");
+    if(ln.area){
+      ch.push(svgEl("path",{d:pathD+" L"+pts[pts.length-1][0]+","+(mt+ph)+" L"+pts[0][0]+","+(mt+ph)+" Z",fill:ln.color,opacity:"0.1"}));
+    }
+    ch.push(svgEl("path",{d:pathD,fill:"none",stroke:ln.color,"stroke-width":"2.5","stroke-linecap":"round"}));
+    pts.forEach(function(p){ch.push(svgEl("circle",{cx:p[0],cy:p[1],r:"3.5",fill:ln.color}))});
+  });
+  var lx=ml;
+  lines.forEach(function(ln,i){
+    var g=svgEl("g",{transform:"translate("+(lx+i*88)+","+(h-2)+")"});
+    g.appendChild(svgEl("rect",{x:"0",y:"-5",width:"10",height:"3",rx:"1",fill:ln.color}));
+    g.appendChild(svgEl("text",{x:"13",y:"-2","font-size":"8",fill:CN.muted},ln.label||ln.key));
+    ch.push(g);
+  });
+  var svg=svgEl("svg",{viewBox:"0 0 "+w+" "+h,style:"width:100%;height:"+h+"px"},ch);
+  return svg;
+}
+
+function mkBar(data,xKey,bars,ht,horiz){
+  var w=380,h=ht||170;
+  var ch=[];
+  var maxV=0;
+  data.forEach(function(d){bars.forEach(function(b){maxV=Math.max(maxV,d[b.key]||0)})});
+  if(!maxV)maxV=1;
+  maxV*=1.15;
+
+  if(horiz){
+    var ml=88,mr=10,mt2=8,mb2=14,pw=w-ml-mr,ph=h-mt2-mb2;
+    data.forEach(function(d,i){
+      var yy=mt2+i*(ph/data.length)+ph/(data.length*2);
+      ch.push(svgEl("text",{x:ml-4,y:yy+4,"text-anchor":"end","font-size":"9",fill:CN.text},String(d[xKey]||"").slice(0,14)));
+      var bh=Math.min(16,ph/data.length/(bars.length));
+      bars.forEach(function(b,bi){
+        var bw=Math.max(2,pw*((d[b.key]||0)/maxV));
+        ch.push(svgEl("rect",{x:ml,y:yy-bh*bars.length/2+bi*bh,width:bw,height:bh-1,rx:"2",fill:b.color,opacity:"0.85"}));
+      });
+    });
+    var lgx=ml;
+    bars.forEach(function(b,i){
+      var g=svgEl("g",{transform:"translate("+(lgx+i*80)+","+(h-2)+")"});
+      g.appendChild(svgEl("rect",{x:"0",y:"-5",width:"10",height:"3",rx:"1",fill:b.color}));
+      g.appendChild(svgEl("text",{x:"13",y:"-2","font-size":"8",fill:CN.muted},b.label||b.key));
+      ch.push(g);
+    });
+  } else {
+    var ml3=44,mr3=10,mt3=12,mb3=38,pw3=w-ml3-mr3,ph3=h-mt3-mb3;
+    for(var gi=0;gi<5;gi++){
+      var gy=mt3+ph3*(1-gi/4);
+      ch.push(svgEl("line",{x1:ml3,y1:gy,x2:w-mr3,y2:gy,stroke:"#f0f0f0"}));
+      ch.push(svgEl("text",{x:ml3-4,y:gy+3,"text-anchor":"end","font-size":"9",fill:CN.muted},""+nf(Math.round(maxV*gi/4))));
+    }
+    var bw2=Math.min(20,pw3/data.length/bars.length-2);
+    data.forEach(function(d,i){
+      var cx2=ml3+pw3*(i+.5)/data.length;
+      ch.push(svgEl("text",{x:cx2,y:h-5,"text-anchor":"middle","font-size":"9",fill:CN.muted},String(d[xKey]||"").slice(0,5)));
+      bars.forEach(function(b,bi){
+        var bx=cx2-(bars.length*bw2)/2+bi*bw2;
+        var bht=ph3*((d[b.key]||0)/maxV);
+        ch.push(svgEl("rect",{x:bx,y:mt3+ph3-bht,width:bw2-1,height:bht,rx:"2",fill:b.color,opacity:b.opacity||"0.85"}));
+      });
+    });
+    bars.forEach(function(b,i){
+      var g=svgEl("g",{transform:"translate("+(ml3+i*80)+","+(h-2)+")"});
+      g.appendChild(svgEl("rect",{x:"0",y:"-5",width:"10",height:"3",rx:"1",fill:b.color}));
+      g.appendChild(svgEl("text",{x:"13",y:"-2","font-size":"8",fill:CN.muted},b.label||b.key));
+      ch.push(g);
+    });
+  }
+  return svgEl("svg",{viewBox:"0 0 "+w+" "+h,style:"width:100%;height:"+h+"px"},ch);
+}
+
+function mkDonut(data,colors,ht){
+  var w=280,h=ht||170,cx=w*.38,cy=h/2,r=Math.min(cx,cy)*.7,ir=r*.55;
+  var total=data.reduce(function(s,d){return s+d.value},0);
+  var cum=0,ch=[];
+  data.forEach(function(d,i){
+    var sa=cum/total*Math.PI*2-Math.PI/2;cum+=d.value;var ea=cum/total*Math.PI*2-Math.PI/2;
+    var lg=ea-sa>Math.PI?1:0;
+    var x1=cx+r*Math.cos(sa),y1=cy+r*Math.sin(sa),x2=cx+r*Math.cos(ea),y2=cy+r*Math.sin(ea);
+    var ix1=cx+ir*Math.cos(sa),iy1=cy+ir*Math.sin(sa),ix2=cx+ir*Math.cos(ea),iy2=cy+ir*Math.sin(ea);
+    ch.push(svgEl("path",{d:"M"+x1+","+y1+" A"+r+","+r+" 0 "+lg+" 1 "+x2+","+y2+" L"+ix2+","+iy2+" A"+ir+","+ir+" 0 "+lg+" 0 "+ix1+","+iy1+" Z",fill:colors[i%colors.length],opacity:"0.85"}));
+    ch.push(svgEl("rect",{x:w*.7,y:6+i*15,width:"8",height:"8",rx:"2",fill:colors[i%colors.length]}));
+    ch.push(svgEl("text",{x:w*.7+11,y:13+i*15,"font-size":"8",fill:CN.text},d.name+": "+Math.round(d.value/total*100)+"%"));
+  });
+  return svgEl("svg",{viewBox:"0 0 "+w+" "+h,style:"width:100%;height:"+h+"px"},ch);
+}
+
+function mkRadar(data,ht){
+  var w=280,h=ht||190,cx=w/2,cy=h/2,r=Math.min(cx,cy)*.55;
+  var n=data.length,as=Math.PI*2/n,ch=[];
+  [.25,.5,.75,1].forEach(function(f){
+    var pts=data.map(function(_,i){var a=as*i-Math.PI/2;return(cx+r*f*Math.cos(a))+","+(cy+r*f*Math.sin(a))}).join(" ");
+    ch.push(svgEl("polygon",{points:pts,fill:"none",stroke:"#E2E8F0","stroke-width":"0.5"}));
+  });
+  data.forEach(function(d,i){
+    var a=as*i-Math.PI/2;
+    ch.push(svgEl("line",{x1:cx,y1:cy,x2:cx+r*Math.cos(a),y2:cy+r*Math.sin(a),stroke:"#E2E8F0","stroke-width":"0.5"}));
+    ch.push(svgEl("text",{x:cx+(r+18)*Math.cos(a),y:cy+(r+18)*Math.sin(a)+3,"text-anchor":"middle","font-size":"9",fill:CN.text,"font-weight":"600"},d.pillar));
+  });
+  var dataPts=data.map(function(d,i){var a=as*i-Math.PI/2;var rv=r*Math.min(d.score/100,1.2);return(cx+rv*Math.cos(a))+","+(cy+rv*Math.sin(a))}).join(" ");
+  ch.push(svgEl("polygon",{points:dataPts,fill:CN.sky,"fill-opacity":"0.2",stroke:CN.sky,"stroke-width":"2"}));
+  data.forEach(function(d,i){var a=as*i-Math.PI/2;var rv=r*Math.min(d.score/100,1.2);ch.push(svgEl("circle",{cx:cx+rv*Math.cos(a),cy:cy+rv*Math.sin(a),r:"3",fill:CN.sky}))});
+  return svgEl("svg",{viewBox:"0 0 "+w+" "+h,style:"width:100%;height:"+h+"px"},ch);
+}
+
+/* ===== DOM HELPERS ===== */
+function el(tag,cls,style){var e=document.createElement(tag);if(cls)e.className=cls;if(style)e.style.cssText=style;return e}
+function txt(tag,text,cls,style){var e=el(tag,cls,style);e.textContent=text;return e}
+function card(title){var d=el("div","cd");if(title){d.appendChild(txt("div",title,"ct"));}var cb=el("div","cb");d.appendChild(cb);return{root:d,body:cb}}
+function narr(text){var d=el("div","nr");d.innerHTML="<strong style='color:#4A5A8A'>📝 Insight: </strong>"+text;return d}
+function ksRow(k){
+  var s=stFn(k.a,k.t,k.inv),p=pcFn(k.a,k.t,k.inv),c=colr(s);
+  var d=el("div","ks","border-left-color:"+c+";background:"+bgc(s));
+  d.appendChild(txt("span",k.nm,"nm"));
+  d.appendChild(txt("span",fk(k.a,k.u),"vl","color:"+c));
+  d.appendChild(txt("span","/ "+fk(k.t,k.u),"tg"));
+  d.appendChild(txt("span",p+"%","pc","color:"+c));
+  return d;
+}
+function statusCircle(label,val,color){
+  var w=el("div","","text-align:center");
+  var sc2=el("div","sc","background:"+color+";box-shadow:0 2px 8px "+color+"44");
+  sc2.appendChild(txt("span",""+val));
+  w.appendChild(sc2);
+  w.appendChild(txt("div",label,"","font-size:9px;color:#94A3B8;margin-top:3px;font-weight:600"));
+  return w;
+}
+
+/* ===== FILTERS ===== */
+function buildFilters(container){
+  var f=el("div","filters");
+  // Country
+  var cg=el("div","","display:flex;align-items:center;gap:4px");
+  cg.appendChild(txt("span","Country","flab"));
+  var cs=el("select");
+  ["Both","Rwanda","Ethiopia"].forEach(function(c){var o=el("option");o.value=c;o.textContent=c;if(c===S.country)o.selected=true;cs.appendChild(o)});
+  cs.onchange=function(){S.country=cs.value;render()};
+  cg.appendChild(cs);f.appendChild(cg);
+  // Years
+  var yg=el("div","","display:flex;align-items:center;gap:4px");
+  yg.appendChild(txt("span","Years","flab"));
+  var allOn=S.years.length===5;
+  var ab=el("button","yb"+(allOn?" on":""));ab.textContent="All Years";
+  ab.onclick=function(){S.years=allOn?[2027]:YLIST.slice();render()};
+  yg.appendChild(ab);
+  YLIST.forEach(function(y){
+    var b=el("button","yb"+(S.years.indexOf(y)>=0?" on":""));b.textContent=y;
+    b.onclick=function(){
+      var idx=S.years.indexOf(y);
+      if(idx>=0){S.years=S.years.filter(function(x){return x!==y})}else{S.years=S.years.concat(y).sort()}
+      if(!S.years.length)S.years=[2027];render()
+    };yg.appendChild(b);
+  });
+  f.appendChild(yg);
+  // Qtr
+  var qg=el("div","","display:flex;align-items:center;gap:4px");
+  qg.appendChild(txt("span","Qtr","flab"));
+  var qs=el("select");QLIST.forEach(function(q){var o=el("option");o.value=q;o.textContent=q;if(q===S.quarter)o.selected=true;qs.appendChild(o)});
+  qs.onchange=function(){S.quarter=qs.value;render()};qg.appendChild(qs);f.appendChild(qg);
+  // Month
+  var mg=el("div","","display:flex;align-items:center;gap:4px");
+  mg.appendChild(txt("span","Month","flab"));
+  var ms=el("select");MLIST.forEach(function(m){var o=el("option");o.value=m;o.textContent=m;if(m===S.month)o.selected=true;ms.appendChild(o)});
+  ms.onchange=function(){S.month=ms.value;render()};mg.appendChild(ms);f.appendChild(mg);
+  container.appendChild(f);
+}
+
+/* ===== PAGES ===== */
+function page0(m){
+  var ly=Math.max.apply(null,S.years);
+  var kpis=getK(S.country,ly);
+  var del=kpis.filter(function(k){return k.p==="Delivery"});
+  var gn=kpis.filter(function(k){return stFn(k.a,k.t,k.inv)==="green"}).length;
+  var ab=kpis.filter(function(k){return stFn(k.a,k.t,k.inv)==="amber"}).length;
+  var rd=kpis.filter(function(k){return stFn(k.a,k.t,k.inv)==="red"}).length;
+  var otp=Math.round(gn/kpis.length*100);
+  var yrLbl=S.years.length===5?"2026–2030":S.years.join(", ");
+  var td=YLIST.filter(function(y){return S.years.indexOf(y)>=0}).map(function(y){var k=getK(S.country,y);return{year:y,pw:k[1].a,coverage:k[2].a,cost:k[3].a,financing:k[9].a}});
+  var compD=YLIST.filter(function(y){return S.years.indexOf(y)>=0}).map(function(y){return{year:y,RW:getK("Rwanda",y)[1].a,ET:getK("Ethiopia",y)[1].a}});
+
+  buildFilters(m);
+
+  // Row 1: 3 gauges + portfolio
+  var r1=el("div","grid g3");
+  var g1=card();g1.body.style.textAlign="center";g1.body.appendChild(mkGauge(kpis[2].a,100,"MMS Coverage %",colr(stFn(kpis[2].a,kpis[2].t)),118));g1.body.appendChild(txt("div","Target: "+kpis[2].t+"%","","font-size:10px;color:#94A3B8"));r1.appendChild(g1.root);
+  var g3=card();g3.body.style.textAlign="center";g3.body.appendChild(mkGauge(otp,100,"On-Track Rate",otp>=60?CN.green:otp>=40?CN.amber:CN.red,118));g3.body.appendChild(txt("div",gn+"/"+kpis.length+" KPIs green","","font-size:10px;color:#94A3B8"));r1.appendChild(g3.root);
+  var ps=card();ps.body.style.textAlign="center";ps.body.style.padding="8px 14px";
+  ps.body.appendChild(txt("div","Portfolio — "+S.country+" | "+yrLbl,"","font-size:11px;font-weight:700;color:#4A5A8A;margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px"));
+  var sd2=el("div","","display:flex;justify-content:center;gap:18px");
+  sd2.appendChild(statusCircle("On Track",gn,CN.green));
+  sd2.appendChild(statusCircle("Attention",ab,CN.amber));
+  sd2.appendChild(statusCircle("Off Track",rd,CN.red));
+  ps.body.appendChild(sd2);
+  ps.body.appendChild(txt("div","≥90% target = On Track | Cost: inverse","","margin-top:6px;font-size:9px;color:#94A3B8"));
+  r1.appendChild(ps.root);m.appendChild(r1);
+
+  // Row 2: PW trend, actual vs target, KPI summary
+  var r2=el("div","grid g3a");
+  var c1=card("📈 PW Receiving MMS — Trend");c1.body.appendChild(mkLine(td,"year",[{key:"pw",color:CN.sky,area:true,label:"PW MMS"}],175));r2.appendChild(c1.root);
+  var avt=del.slice(0,5).map(function(k){return{name:k.nm.slice(0,14),Actual:k.u==="%"?k.a:Math.round(k.a/1000),Target:k.u==="%"?k.t:Math.round(k.t/1000)}});
+  var c2=card("📊 Delivery — Actual vs Target");c2.body.appendChild(mkBar(avt,"name",[{key:"Target",color:"#CBD5E1",label:"Target"},{key:"Actual",color:CN.sky,label:"Actual"}],175,true));r2.appendChild(c2.root);
+  var c3=card("🎯 Delivery KPI Summary");c3.body.style.maxHeight="175px";c3.body.style.overflowY="auto";del.forEach(function(k){c3.body.appendChild(ksRow(k))});r2.appendChild(c3.root);
+  m.appendChild(r2);
+
+  // Row 3: Coverage, RW & ET, Cost
+  var r3=el("div","grid g3");
+  var c4=card("📉 Coverage Trend");c4.body.appendChild(mkLine(td,"year",[{key:"coverage",color:CN.green,label:"Coverage %"}],165,[0,100]));r3.appendChild(c4.root);
+  var c5=card("🔄 Rwanda & Ethiopia — PW");c5.body.appendChild(mkBar(compD,"year",[{key:"RW",color:CN.sky,label:"Rwanda"},{key:"ET",color:CN.accent,label:"Ethiopia"}],165));r3.appendChild(c5.root);
+  var c6=card("💰 Cost & Financing");c6.body.appendChild(mkLine(td,"year",[{key:"cost",color:CN.red,label:"$/Woman"},{key:"financing",color:CN.navy,area:true,label:"Fin $M"}],165));r3.appendChild(c6.root);
+  m.appendChild(r3);
+
+  var bestDel=del.reduce(function(b,k){return pcFn(k.a,k.t,k.inv)>pcFn(b.a,b.t,b.inv)?k:b},del[0]);
+  m.appendChild(narr(yrLbl+", "+(S.country==="Both"?"Rwanda & Ethiopia":S.country)+": "+gn+"/"+kpis.length+" on track ("+otp+"%). Best: \""+bestDel.nm+"\" at "+pcFn(bestDel.a,bestDel.t,bestDel.inv)+"%."));
+
+  m.appendChild(txt("div","All KPIs — "+S.country+" | "+yrLbl,"","margin-top:12px;font-size:12px;font-weight:700;color:#4A5A8A;margin-bottom:6px"));
+  var kg=el("div","grid g2","gap:4px");
+  kpis.forEach(function(k){kg.appendChild(ksRow(k))});
+  m.appendChild(kg);
+}
+
+function page1(m){
+  var ly=Math.max.apply(null,S.years);
+  var kpis=getK(S.country,ly);
+  var del=kpis.filter(function(k){return k.p==="Delivery"});
+  var td=YLIST.filter(function(y){return S.years.indexOf(y)>=0}).map(function(y){var k=getK(S.country,y);return{year:y,coverage:k[2].a}});
+  buildFilters(m);
+  m.appendChild(txt("div","Pillar 1: Delivery Systems","ptitle"));
+  var r1=el("div","grid g4","gap:8px");
+  del.slice(0,4).forEach(function(k){var s=stFn(k.a,k.t,k.inv);var c=card();c.body.style.textAlign="center";c.body.appendChild(mkGauge(k.u==="%"?k.a:pcFn(k.a,k.t,k.inv),100,k.nm.slice(0,18),colr(s),105));r1.appendChild(c.root)});
+  m.appendChild(r1);
+
+  _seed=((S.country==="Rwanda"?7:S.country==="Ethiopia"?13:20)+ly*31+99)%2147483647;
+  var mPW=MLIST.slice(1).map(function(mo,i){return{month:mo,actual:sd(S.country,ly,35000+i*3000),target:sd("t",ly,42000+i*2500)}});
+  var trn=[{name:"Nurse/Midwife",Rwanda:sd("Rwanda",ly,12000),Ethiopia:sd("Ethiopia",ly,18000)},{name:"Clinical Off.",Rwanda:sd("Rwanda",ly,4000),Ethiopia:sd("Ethiopia",ly,6000)},{name:"CHW/HEW",Rwanda:sd("Rwanda",ly,8000),Ethiopia:sd("Ethiopia",ly,25000)},{name:"Other",Rwanda:sd("Rwanda",ly,2000),Ethiopia:sd("Ethiopia",ly,3000)}];
+
+  var r2=el("div","grid g2a");
+  var c1=card("📊 Monthly PW — Actual vs Target");c1.body.appendChild(mkBar(mPW,"month",[{key:"actual",color:CN.sky,label:"Actual"},{key:"target",color:"#CBD5E1",label:"Target"}],185));r2.appendChild(c1.root);
+  var c2=card("👥 HW Trained by Type");c2.body.appendChild(mkBar(trn,"name",[{key:"Rwanda",color:CN.sky,label:"Rwanda"},{key:"Ethiopia",color:CN.accent,label:"Ethiopia"}],185,true));r2.appendChild(c2.root);
+  m.appendChild(r2);
+
+  var ageD=[{name:"Adol 10-19",value:80},{name:"Adults 20+",value:320}];
+  var sxD=[{name:"Male",value:30},{name:"Female",value:58}];
+  var r3=el("div","grid g3");
+  var c3=card("Age — PW");c3.body.appendChild(mkDonut(ageD,[CN.accent,CN.sky],140));r3.appendChild(c3.root);
+  var c4=card("Sex — HW");c4.body.appendChild(mkDonut(sxD,[CN.teal,CN.accent],140));r3.appendChild(c4.root);
+  var c5=card("Trend");c5.body.appendChild(mkLine(td,"year",[{key:"coverage",color:CN.green,label:"Coverage"}],140,[0,100]));r3.appendChild(c5.root);
+  m.appendChild(r3);
+  m.appendChild(narr("Delivery: "+del.filter(function(k){return stFn(k.a,k.t,k.inv)==="green"}).length+"/"+del.length+" on track. Adolescents ~20% of PW. CHW/HEWs largest cadre."));
+}
+
+function page2(m){
+  var ly=Math.max.apply(null,S.years);
+  var kpis=getK(S.country,ly);
+  var mkt=kpis.filter(function(k){return k.p==="Market"});
+  var sTr=YLIST.filter(function(y){return S.years.indexOf(y)>=0}).map(function(y){_seed=((S.country==="Rwanda"?7:13)+y*31+55)%2147483647;return{year:y,cost:getK(S.country,y)[8].a,local:sd(S.country,y,15)}});
+  buildFilters(m);
+  m.appendChild(txt("div","Pillar 2: Market Shaping","ptitle"));
+  var r=el("div","grid g3");
+  var c1=card("📉 Cost/Course ($)");c1.body.appendChild(mkLine(sTr,"year",[{key:"cost",color:CN.red,label:"$/Course"}],180,[0,5]));r.appendChild(c1.root);
+  var c2=card("📊 % Local Sourcing");c2.body.appendChild(mkLine(sTr,"year",[{key:"local",color:CN.green,area:true,label:"% Local"}],180));r.appendChild(c2.root);
+  var c3=card("Market KPIs");mkt.forEach(function(k){c3.body.appendChild(ksRow(k))});r.appendChild(c3.root);
+  m.appendChild(r);
+  m.appendChild(narr("Cost/course $"+(mkt[1]?mkt[1].a:"—")+". Pooled procurement expanding."));
+}
+
+function page3(m){
+  var ly=Math.max.apply(null,S.years);
+  var kpis=getK(S.country,ly);
+  var fin=kpis.filter(function(k){return k.p==="Financing"});
+  var td=YLIST.filter(function(y){return S.years.indexOf(y)>=0}).map(function(y){var k=getK(S.country,y);return{year:y,financing:k[9].a}});
+  _seed=((S.country==="Rwanda"?7:13)+ly*31+77)%2147483647;
+  var fT=[{name:"Dom Gov",value:sd(S.country,ly,3)},{name:"MDBs",value:sd(S.country,ly,4)},{name:"Bilateral",value:sd(S.country,ly,2)},{name:"CIFF",value:sd(S.country,ly,5)},{name:"Philanthropic",value:sd(S.country,ly,1)},{name:"Private",value:sd(S.country,ly,1)}];
+  buildFilters(m);
+  m.appendChild(txt("div","Pillar 3: Financing","ptitle"));
+  var r=el("div","grid g3");
+  var c1=card("🍩 By Source ($M)");c1.body.appendChild(mkDonut(fT,[CN.red,CN.navy,CN.sky,CN.accent,CN.green,"#8B5CF6"],190));r.appendChild(c1.root);
+  var c2=card("📊 Trend ($M)");c2.body.appendChild(mkBar(td,"year",[{key:"financing",color:CN.navy,label:"$M"}],190));r.appendChild(c2.root);
+  var c3=card("Financing KPIs");fin.forEach(function(k){c3.body.appendChild(ksRow(k))});r.appendChild(c3.root);
+  m.appendChild(r);
+  m.appendChild(narr("$"+kpis[9].a+"M committed, $"+kpis[9].t+"M target ("+pcFn(kpis[9].a,kpis[9].t)+"%)."));
+}
+
+function page4(m){
+  var ly=Math.max.apply(null,S.years);
+  var kpis=getK(S.country,ly);
+  var eco=kpis.filter(function(k){return k.p==="Ecosystem"||k.p==="Calcium"});
+  buildFilters(m);
+  m.appendChild(txt("div","Pillars 4 & 5: Ecosystem & Calcium","ptitle"));
+  var r=el("div","grid g3");
+  [{nm:"Continental Scorecard",tg:2028,ic:"🎯"},{nm:"WHO Guidelines",tg:2029,ic:"📋"},{nm:"7 Countries Ready",tg:2030,ic:"🌍"}].forEach(function(mi){
+    var c=card();c.root.style.textAlign="center";c.root.style.background=ly>=mi.tg?"#F0FDF4":"#FFFBEB";
+    c.body.appendChild(txt("div",mi.ic,"","font-size:28px"));
+    c.body.appendChild(txt("div",mi.nm,"","font-size:12px;font-weight:700;margin-top:2px"));
+    c.body.appendChild(txt("div","Target: "+mi.tg,"","font-size:10px;color:#94A3B8"));
+    c.body.appendChild(txt("div",ly>=mi.tg?"✅ Achieved":"⏳ Pending","","font-size:13px;font-weight:800;color:"+(ly>=mi.tg?CN.green:CN.amber)+";margin-top:4px"));
+    r.appendChild(c.root);
+  });
+  m.appendChild(r);
+  var kg=el("div","grid g2","gap:4px");eco.forEach(function(k){kg.appendChild(ksRow(k))});m.appendChild(kg);
+}
+
+function page5(m){
+  var td=YLIST.filter(function(y){return S.years.indexOf(y)>=0}).map(function(y){var k=getK(S.country,y);return{year:y,pw:k[1].a,cost:k[3].a,financing:k[9].a,roadmaps:k[8].a}});
+  var compD=YLIST.filter(function(y){return S.years.indexOf(y)>=0}).map(function(y){return{year:y,RW:getK("Rwanda",y)[1].a,ET:getK("Ethiopia",y)[1].a,RW_C:getK("Rwanda",y)[2].a,ET_C:getK("Ethiopia",y)[2].a}});
+  buildFilters(m);
+  m.appendChild(txt("div","Trend Analytics","ptitle"));
+  var r=el("div","grid g2");
+  var c1=card("PW — Rwanda & Ethiopia");c1.body.appendChild(mkLine(compD,"year",[{key:"RW",color:CN.sky,label:"Rwanda"},{key:"ET",color:CN.accent,label:"Ethiopia"}],195));r.appendChild(c1.root);
+  var c2=card("Coverage — Rwanda & Ethiopia");c2.body.appendChild(mkLine(compD,"year",[{key:"RW_C",color:CN.sky,label:"Rwanda"},{key:"ET_C",color:CN.accent,label:"Ethiopia"}],195,[0,100]));r.appendChild(c2.root);
+  var c3=card("Financing & Roadmaps");c3.body.appendChild(mkBar(td,"year",[{key:"financing",color:CN.navy,label:"$M"},{key:"roadmaps",color:CN.accent,label:"Roadmaps"}],195));r.appendChild(c3.root);
+  var c4=card("Cost per Woman");c4.body.appendChild(mkLine(td,"year",[{key:"cost",color:CN.red,area:true,label:"$/Woman"}],195));r.appendChild(c4.root);
+  m.appendChild(r);
+  m.appendChild(narr("Rwanda leads delivery 5-10%. Ethiopia larger absolute numbers. Cost trending to $6."));
+}
+
+function page6(m){
+  var ly=Math.max.apply(null,S.years);
+  buildFilters(m);
+  m.appendChild(txt("div","Geographic View","ptitle"));
+  var r=el("div","grid g2","gap:14px");
+  ["Rwanda","Ethiopia"].forEach(function(c2){
+    var ck=getK(c2,ly);
+    var cc=card();
+    var hd=el("div","center","margin-bottom:6px");
+    hd.appendChild(txt("span",c2==="Rwanda"?"🇷🇼":"🇪🇹","","font-size:40px"));
+    hd.appendChild(txt("div",c2,"","font-size:16px;font-weight:800;color:#4A5A8A"));
+    cc.body.appendChild(hd);
+    var mg=el("div","grid g3","gap:5px");
+    [{l:"PW MMS",v:ck[1].a.toLocaleString(),tg:ck[1].t.toLocaleString(),s:stFn(ck[1].a,ck[1].t)},{l:"Coverage",v:ck[2].a+"%",tg:ck[2].t+"%",s:stFn(ck[2].a,ck[2].t)},{l:"Cost/W",v:"$"+ck[3].a,tg:"$6",s:stFn(ck[3].a,ck[3].t,true)},{l:"Districts",v:ck[4].a.toLocaleString(),tg:ck[4].t.toLocaleString(),s:stFn(ck[4].a,ck[4].t)},{l:"Finance",v:"$"+ck[9].a+"M",tg:"$"+ck[9].t+"M",s:stFn(ck[9].a,ck[9].t)}].forEach(function(it){
+      var bd=it.s==="green"?"#BBF7D0":it.s==="amber"?"#FDE68A":"#FECACA";
+      var d=el("div","","padding:5px;border-radius:5px;background:"+bgc(it.s)+";border:1px solid "+bd);
+      d.appendChild(txt("div",it.l,"","font-size:9px;color:#94A3B8;font-weight:600"));
+      d.appendChild(txt("div",it.v,"","font-size:14px;font-weight:800"));
+      d.appendChild(txt("div","T:"+it.tg,"","font-size:9px;color:#94A3B8"));
+      mg.appendChild(d);
+    });
+    cc.body.appendChild(mg);
+    cc.body.appendChild(narr(c2==="Rwanda"?"30 districts, HMIS, ANC-1 counting.":"1000+ woredas, IFA→MMS transition, HEW network."));
+    r.appendChild(cc.root);
+  });
+  m.appendChild(r);
+}
+
+function page7(m){
+  var dq=[
+    {ind:"PW Receiving MMS",rw:"HMIS/DHIS2",et:"Transitional reg.",fr:"Monthly",q:"Medium",risk:"Triangulate HMIS+LMIS",rs:72,es:58},
+    {ind:"Stock-outs",rw:"Spot checks",et:"EPSS",fr:"Biannual",q:"Medium",risk:"Standardize protocol",rs:60,es:48},
+    {ind:"HW Trained",rw:"Partner reports",et:"Partner reports",fr:"Quarterly",q:"Medium",risk:"De-dup via IDs",rs:65,es:62},
+    {ind:"Coverage %",rw:"HMIS/ANC",et:"HMIS/pop est",fr:"Monthly",q:"Medium",risk:"Denom accuracy",rs:70,es:55},
+    {ind:"Financing",rw:"Budget rpt",et:"Budget rpt",fr:"Biannual",q:"Good",risk:"Source overlap",rs:80,es:76},
+    {ind:"Demand-Gen",rw:"CHW rpt",et:"HEW rpt",fr:"Monthly",q:"Low",risk:"Unstandardized",rs:50,es:42},
+    {ind:"Volunteers",rw:"District logs",et:"Woreda logs",fr:"Monthly",q:"Medium",risk:"Active vs trained",rs:68,es:58}
+  ];
+  var aR=Math.round(dq.reduce(function(s,d){return s+d.rs},0)/dq.length);
+  var aE=Math.round(dq.reduce(function(s,d){return s+d.es},0)/dq.length);
+  buildFilters(m);
+  m.appendChild(txt("div","🛡️ Data Quality","ptitle"));
+  var r1=el("div","grid g2b");
+  var g1=card();g1.body.style.textAlign="center";g1.body.appendChild(mkGauge(aR,100,"Rwanda DQ",aR>=70?CN.green:CN.amber,118));g1.body.appendChild(txt("div","Avg "+dq.length+" indicators","","font-size:10px;color:#94A3B8"));r1.appendChild(g1.root);
+  var g2=card();g2.body.style.textAlign="center";g2.body.appendChild(mkGauge(aE,100,"Ethiopia DQ",aE>=70?CN.green:CN.amber,118));g2.body.appendChild(txt("div","Avg "+dq.length+" indicators","","font-size:10px;color:#94A3B8"));r1.appendChild(g2.root);
+  var bc=card("📊 DQ by Indicator");bc.body.appendChild(mkBar(dq.map(function(d){return{name:d.ind.slice(0,12),Rwanda:d.rs,Ethiopia:d.es}}),"name",[{key:"Rwanda",color:CN.sky,label:"Rwanda"},{key:"Ethiopia",color:CN.accent,label:"Ethiopia"}],155,true));r1.appendChild(bc.root);
+  m.appendChild(r1);
+
+  var tc=card("📋 Source Matrix");
+  var tbl=el("table");
+  var thead=el("thead");var tr=el("tr");
+  ["Indicator","Rwanda","Ethiopia","Freq","Quality","Risk","🇷🇼","🇪🇹"].forEach(function(h2){tr.appendChild(txt("th",h2))});
+  thead.appendChild(tr);tbl.appendChild(thead);
+  var tbody=el("tbody");
+  dq.forEach(function(d){
+    var r2=el("tr");
+    r2.appendChild(txt("td",d.ind,"","font-weight:600"));r2.appendChild(txt("td",d.rw));r2.appendChild(txt("td",d.et));
+    var ftd=el("td");var fb=txt("span",d.fr,"bg","background:"+CN.light);ftd.appendChild(fb);r2.appendChild(ftd);
+    var qtd=el("td");var qb=txt("span",d.q,"bg","background:"+(d.q==="Good"?"#F0FDF4":d.q==="Medium"?"#FFFBEB":"#FEF2F2")+";color:"+(d.q==="Good"?CN.green:d.q==="Medium"?CN.amber:CN.red));qtd.appendChild(qb);r2.appendChild(qtd);
+    r2.appendChild(txt("td",d.risk,"","font-size:9px;color:#94A3B8"));
+    r2.appendChild(txt("td",d.rs+"%","","font-weight:700;color:"+(d.rs>=70?CN.green:d.rs>=50?CN.amber:CN.red)));
+    r2.appendChild(txt("td",d.es+"%","","font-weight:700;color:"+(d.es>=70?CN.green:d.es>=50?CN.amber:CN.red)));
+    tbody.appendChild(r2);
+  });
+  tbl.appendChild(tbody);tc.body.appendChild(tbl);m.appendChild(tc.root);
+
+  m.appendChild(narr("Rwanda DQ "+aR+"%, Ethiopia "+aE+"%. Priorities: harmonize counting, unique HW IDs, stock-out protocol."));
+
+  var rc=card("🔑 Recommendations");
+  var rg=el("div","grid g2","gap:6px");
+  [{t:"HMIS Triangulation",d:"Cross-validate LMIS",pr:"HIGH"},{t:"HW De-dup",d:"Unique HW IDs",pr:"HIGH"},{t:"Counting Harmonization",d:"ANC-1 vs any-ANC",pr:"HIGH"},{t:"Stock-out Protocol",d:"Standardize monitoring",pr:"MED"}].forEach(function(r2){
+    var d=el("div","","padding:8px;border-radius:6px;background:#F8FAFC;border:1px solid "+CN.border);
+    var hdr=el("div","","display:flex;justify-content:space-between");
+    hdr.appendChild(txt("span",r2.t,"","font-size:11px;font-weight:700;color:#4A5A8A"));
+    hdr.appendChild(txt("span",r2.pr,"bg","background:"+(r2.pr==="HIGH"?"#FEF2F2":"#FFFBEB")+";color:"+(r2.pr==="HIGH"?CN.red:CN.amber)));
+    d.appendChild(hdr);d.appendChild(txt("div",r2.d,"","font-size:10px;color:#94A3B8;margin-top:3px"));
+    rg.appendChild(d);
+  });
+  rc.body.appendChild(rg);m.appendChild(rc.root);
+}
+
+function page8(m){
+  var ly=Math.max.apply(null,S.years);
+  var kpis=getK(S.country,ly);
+  var gn=kpis.filter(function(k){return stFn(k.a,k.t,k.inv)==="green"}).length;
+  var otp=Math.round(gn/kpis.length*100);
+  var rdr=["Delivery","Market","Financing","Ecosystem","Calcium"].map(function(p2){var f=kpis.filter(function(k){return k.p===p2});return{pillar:p2,score:f.length?Math.round(f.reduce(function(s,k){return s+pcFn(k.a,k.t,k.inv)},0)/f.length):0}});
+  buildFilters(m);
+  m.appendChild(txt("div","KPI Deep Dive","ptitle"));
+  var r1=el("div","grid g2");
+  var ac=card("Achievement Distribution");ac.body.appendChild(mkBar(kpis.map(function(k){return{name:k.nm.slice(0,12),val:pcFn(k.a,k.t,k.inv)}}),"name",[{key:"val",color:CN.sky,label:"Ach %"}],195));r1.appendChild(ac.root);
+  var rc=card("Pillar Radar");rc.body.appendChild(mkRadar(rdr,195));r1.appendChild(rc.root);
+  m.appendChild(r1);
+
+  var tc=card("");
+  var tbl=el("table");
+  var thead=el("thead");var tr2=el("tr");
+  ["","Pillar","KPI","Actual","Target","Ach%","Var",""].forEach(function(h2,i){var th2=txt("th",h2);if(i>=3)th2.style.textAlign="right";tr2.appendChild(th2)});
+  thead.appendChild(tr2);tbl.appendChild(thead);
+  var tbody=el("tbody");
+  kpis.forEach(function(k){
+    var s=stFn(k.a,k.t,k.inv),p=pcFn(k.a,k.t,k.inv),v=k.inv?k.t-k.a:k.a-k.t;
+    var r2=el("tr");
+    var dtd=el("td");var dt=el("span","dot","background:"+colr(s));dtd.appendChild(dt);r2.appendChild(dtd);
+    r2.appendChild(txt("td",k.p,"","font-size:9px;color:#94A3B8;font-weight:600"));
+    r2.appendChild(txt("td",k.nm,"","font-weight:600"));
+    r2.appendChild(txt("td",fk(k.a,k.u),"","text-align:right;font-weight:700;color:"+colr(s)));
+    r2.appendChild(txt("td",fk(k.t,k.u),"","text-align:right;color:#94A3B8"));
+    r2.appendChild(txt("td",p+"%","","text-align:right;font-weight:700;color:"+colr(s)));
+    r2.appendChild(txt("td",(v>=0?"+":"")+(Math.abs(v)>=1000?v.toLocaleString():typeof v==="number"?v.toFixed(1):v),"","text-align:right;color:"+(v>=0?CN.green:CN.red)+";font-weight:600"));
+    r2.appendChild(txt("td",ly>2026?(p>=90?"📈":p>=70?"➡️":"📉"):"🆕","","text-align:center"));
+    tbody.appendChild(r2);
+  });
+  tbl.appendChild(tbody);tc.body.appendChild(tbl);m.appendChild(tc.root);
+  m.appendChild(narr(gn+"/"+kpis.length+" on track ("+otp+"%)."));
+}
+
+/* ===== RENDER ===== */
+function render(){
+  // Tabs
+  var tabsEl=document.getElementById("tabs");
+  tabsEl.innerHTML="";
+  PAGES.forEach(function(p,i){
+    var b=el("button","tab"+(S.page===i?" on":""));
+    b.textContent=p;b.onclick=function(){S.page=i;render()};
+    tabsEl.appendChild(b);
+  });
+  // Main
+  var mainEl=document.getElementById("main");
+  mainEl.innerHTML="";
+  [page0,page1,page2,page3,page4,page5,page6,page7,page8][S.page](mainEl);
+}
+
+render();
+</script>
+</body>
+</html>
